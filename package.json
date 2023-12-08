@@ -1,6 +1,6 @@
 {
-  "name": "nodejs-common-helpers",
-  "version": "1.0.4",
+  "name": "nodejs-common-helper",
+  "version": "1.0.6",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
