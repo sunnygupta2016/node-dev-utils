@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-common-helpers",
+  "version": "1.0.4",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "tsc",
+    "push": "tsc && npm version patch -git-tag-version false   && npm publish"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sunnygupta2016/node-dev-utils.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sunnygupta2016/node-dev-utils/issues"
+  },
+  "homepage": "https://github.com/sunnygupta2016/node-dev-utils#readme",
+  "dependencies": {
+    "typescript": "^5.3.3"
+  }
+}
