@@ -23,5 +23,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.common = void 0;
+exports.MongoDBConnection = exports.common = void 0;
 exports.common = __importStar(require("./lib/common"));
+exports.MongoDBConnection = __importStar(require("./lib/connection"));

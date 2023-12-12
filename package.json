@@ -1,6 +1,6 @@
 {
   "name": "nodejs-common-helper",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/sunnygupta2016/node-dev-utils#readme",
   "dependencies": {
+    "@types/mongoose": "^5.11.97",
+    "mongoose": "^8.0.3",
     "typescript": "^5.3.3"
   }
 }

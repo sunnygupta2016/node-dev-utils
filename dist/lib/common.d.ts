@@ -1,2 +1,3 @@
 declare function IsEqualArrays(a: [any] | [], b: [any] | []): boolean;
-export { IsEqualArrays };
+declare function getCountryFromCode(code: string): string;
+export { IsEqualArrays, getCountryFromCode };
