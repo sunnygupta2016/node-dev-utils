@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCountryFromCode = exports.IsEqualArrays = void 0;
+exports.OTPGenerator = exports.getCountryFromCode = exports.IsEqualArrays = void 0;
 var data = {
     "AF": "Afghanistan",
     "AX": "Åland Islands",
@@ -274,3 +274,30 @@ function getCountryFromCode(code) {
     return data[code];
 }
 exports.getCountryFromCode = getCountryFromCode;
+var OTPGenerator = /** @class */ (function () {
+    function OTPGenerator() {
+    }
+    OTPGenerator.prototype.generateRandomString = function (characters, length) {
+        var result = '';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            var randomIndex = Math.floor(Math.random() * charactersLength);
+            result += characters.charAt(randomIndex);
+        }
+        return result;
+    };
+    OTPGenerator.prototype.generateNumericOTP = function (length) {
+        return this.generateRandomString(OTPGenerator.NUMERIC, length);
+    };
+    OTPGenerator.prototype.generateCharacterOTP = function (length) {
+        return this.generateRandomString(OTPGenerator.CHARACTERS, length);
+    };
+    OTPGenerator.prototype.generateAlphanumericOTP = function (length) {
+        return this.generateRandomString(OTPGenerator.ALPHANUMERIC, length);
+    };
+    OTPGenerator.NUMERIC = '0123456789';
+    OTPGenerator.CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    OTPGenerator.ALPHANUMERIC = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    return OTPGenerator;
+}());
+exports.OTPGenerator = OTPGenerator;

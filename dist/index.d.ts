@@ -1,2 +1,4 @@
 export * as common from "./lib/common";
-export * as MongoDBConnection from "./lib/connection";
+export { MongoDBConnection } from "./lib/connection";
+export { JwtWebToken } from "./lib/jsontoken";
+export { OTPGenerator } from "./lib/common";

@@ -267,7 +267,33 @@ function IsEqualArrays(a: [any] | [], b: [any] | []): boolean {
 function getCountryFromCode(code: string) {
     return data[code];
 }
+class OTPGenerator {
+    private static readonly NUMERIC = '0123456789';
+    private static readonly CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    private static readonly ALPHANUMERIC = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    private generateRandomString(characters: string, length: number): string {
+        let result = '';
+        const charactersLength = characters.length;
+
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * charactersLength);
+            result += characters.charAt(randomIndex);
+        }
+        return result;
+    }
+    generateNumericOTP(length: number): string {
+        return this.generateRandomString(OTPGenerator.NUMERIC, length);
+    }
+    generateCharacterOTP(length: number): string {
+        return this.generateRandomString(OTPGenerator.CHARACTERS, length);
+    }
+    generateAlphanumericOTP(length: number): string {
+        return this.generateRandomString(OTPGenerator.ALPHANUMERIC, length);
+    }
+}
 export {
     IsEqualArrays,
-    getCountryFromCode
+    getCountryFromCode,
+    OTPGenerator
 }

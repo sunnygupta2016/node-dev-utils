@@ -52,8 +52,10 @@ var MongoDBConnection = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
+                        //await this.mongoose.connect(databaseUrl,{ useUnifiedTopology: true });
                         return [4 /*yield*/, this.mongoose.connect(databaseUrl)];
                     case 1:
+                        //await this.mongoose.connect(databaseUrl,{ useUnifiedTopology: true });
                         _a.sent();
                         console.log('Connected to MongoDB');
                         return [2 /*return*/, this.mongoose.connection];

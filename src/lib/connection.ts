@@ -1,4 +1,5 @@
-import mongoose, { Connection, Mongoose } from 'mongoose';
+import mongoose, { Connection, Mongoose} from 'mongoose';
+
 
 class MongoDBConnection {
   private mongoose: Mongoose;
@@ -9,7 +10,8 @@ class MongoDBConnection {
 
   async connect(databaseUrl: string): Promise<Connection> {
     try {
-      await this.mongoose.connect(databaseUrl);
+      //await this.mongoose.connect(databaseUrl,{ useUnifiedTopology: true });
+      await this.mongoose.connect((databaseUrl as string))
 
       console.log('Connected to MongoDB');
       return this.mongoose.connection;
