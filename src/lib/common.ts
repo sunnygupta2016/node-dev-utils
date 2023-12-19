@@ -270,7 +270,7 @@ function getCountryFromCode(code: string) {
 class OTPGenerator {
     private static readonly NUMERIC = '0123456789';
     private static readonly CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    private static readonly ALPHANUMERIC = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    private static readonly ALPHANUMERIC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
     private generateRandomString(characters: string, length: number): string {
         let result = '';
@@ -280,16 +280,25 @@ class OTPGenerator {
             const randomIndex = Math.floor(Math.random() * charactersLength);
             result += characters.charAt(randomIndex);
         }
+
         return result;
     }
+
     generateNumericOTP(length: number): string {
         return this.generateRandomString(OTPGenerator.NUMERIC, length);
     }
+
     generateCharacterOTP(length: number): string {
         return this.generateRandomString(OTPGenerator.CHARACTERS, length);
     }
+
     generateAlphanumericOTP(length: number): string {
-        return this.generateRandomString(OTPGenerator.ALPHANUMERIC, length);
+        // Ensure at least one numeric character
+        const numericCharacter = this.generateRandomString(OTPGenerator.NUMERIC, 1);
+        const remainingLength = length - 1;
+        const alphanumericPart = this.generateRandomString(OTPGenerator.ALPHANUMERIC, remainingLength);
+
+        return numericCharacter + alphanumericPart;
     }
 }
 export {

@@ -293,11 +293,15 @@ var OTPGenerator = /** @class */ (function () {
         return this.generateRandomString(OTPGenerator.CHARACTERS, length);
     };
     OTPGenerator.prototype.generateAlphanumericOTP = function (length) {
-        return this.generateRandomString(OTPGenerator.ALPHANUMERIC, length);
+        // Ensure at least one numeric character
+        var numericCharacter = this.generateRandomString(OTPGenerator.NUMERIC, 1);
+        var remainingLength = length - 1;
+        var alphanumericPart = this.generateRandomString(OTPGenerator.ALPHANUMERIC, remainingLength);
+        return numericCharacter + alphanumericPart;
     };
     OTPGenerator.NUMERIC = '0123456789';
     OTPGenerator.CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    OTPGenerator.ALPHANUMERIC = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    OTPGenerator.ALPHANUMERIC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     return OTPGenerator;
 }());
 exports.OTPGenerator = OTPGenerator;
