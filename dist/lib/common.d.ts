@@ -9,4 +9,11 @@ declare class OTPGenerator {
     generateCharacterOTP(length: number): string;
     generateAlphanumericOTP(length: number): string;
 }
-export { IsEqualArrays, getCountryFromCode, OTPGenerator };
+declare class CryptoService {
+    private encryptionKey;
+    private Iv;
+    constructor(encryptionKey: string, Iv: string);
+    encrypt(text: string): string;
+    decrypt(cipherText: string): string;
+}
+export { IsEqualArrays, getCountryFromCode, OTPGenerator, CryptoService };

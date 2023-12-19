@@ -301,8 +301,32 @@ class OTPGenerator {
         return numericCharacter + alphanumericPart;
     }
 }
+import * as CryptoJS from 'crypto-js';
+
+class CryptoService {
+    private encryptionKey: string;
+    private Iv: string;
+
+    constructor(encryptionKey: string, Iv: string) {
+        this.encryptionKey = encryptionKey;
+        this.Iv = Iv;
+    }
+
+    encrypt(text: string): string {
+        const cipherText = CryptoJS.AES.encrypt(text, this.encryptionKey, { Iv: this.Iv }).toString();
+        return cipherText;
+    }
+
+    decrypt(cipherText: string): string {
+        const decryptedBytes = CryptoJS.AES.decrypt(cipherText, this.encryptionKey, { Iv: this.Iv });
+        const decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
+        return decryptedText;
+    }
+}
+
 export {
     IsEqualArrays,
     getCountryFromCode,
-    OTPGenerator
+    OTPGenerator,
+    CryptoService
 }

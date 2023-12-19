@@ -1,6 +1,6 @@
 {
   "name": "nodejs-common-helper",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -21,11 +21,13 @@
   },
   "homepage": "https://github.com/sunnygupta2016/node-dev-utils#readme",
   "dependencies": {
+    "crypto-js": "^4.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.1",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/mongoose": "^5.11.97"
   }

@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OTPGenerator = exports.JwtWebToken = exports.MongoDBConnection = exports.common = void 0;
+exports.CryptoService = exports.OTPGenerator = exports.JwtWebToken = exports.MongoDBConnection = exports.common = void 0;
 exports.common = __importStar(require("./lib/common"));
 var connection_1 = require("./lib/connection");
 Object.defineProperty(exports, "MongoDBConnection", { enumerable: true, get: function () { return connection_1.MongoDBConnection; } });
@@ -31,3 +31,5 @@ var jsontoken_1 = require("./lib/jsontoken");
 Object.defineProperty(exports, "JwtWebToken", { enumerable: true, get: function () { return jsontoken_1.JwtWebToken; } });
 var common_1 = require("./lib/common");
 Object.defineProperty(exports, "OTPGenerator", { enumerable: true, get: function () { return common_1.OTPGenerator; } });
+var common_2 = require("./lib/common");
+Object.defineProperty(exports, "CryptoService", { enumerable: true, get: function () { return common_2.CryptoService; } });

@@ -1,6 +1,29 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OTPGenerator = exports.getCountryFromCode = exports.IsEqualArrays = void 0;
+exports.CryptoService = exports.OTPGenerator = exports.getCountryFromCode = exports.IsEqualArrays = void 0;
 var data = {
     "AF": "Afghanistan",
     "AX": "Åland Islands",
@@ -305,3 +328,21 @@ var OTPGenerator = /** @class */ (function () {
     return OTPGenerator;
 }());
 exports.OTPGenerator = OTPGenerator;
+var CryptoJS = __importStar(require("crypto-js"));
+var CryptoService = /** @class */ (function () {
+    function CryptoService(encryptionKey, Iv) {
+        this.encryptionKey = encryptionKey;
+        this.Iv = Iv;
+    }
+    CryptoService.prototype.encrypt = function (text) {
+        var cipherText = CryptoJS.AES.encrypt(text, this.encryptionKey, { Iv: this.Iv }).toString();
+        return cipherText;
+    };
+    CryptoService.prototype.decrypt = function (cipherText) {
+        var decryptedBytes = CryptoJS.AES.decrypt(cipherText, this.encryptionKey, { Iv: this.Iv });
+        var decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
+        return decryptedText;
+    };
+    return CryptoService;
+}());
+exports.CryptoService = CryptoService;
