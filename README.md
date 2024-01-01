@@ -14,3 +14,14 @@
 
 `In Progress:`
 Expect more valuable functions and enhancements to be added in future updates. We are committed to continuously improving and expanding the capabilities of nodejs-common-helper to meet the evolving needs of Node.js developers.
+
+## Node.js (Install)
+
+Requirements:
+
+- Node.js
+- npm (Node.js package manager)
+
+```bash
+npm install nodejs-common-helper
+```
