@@ -326,46 +326,48 @@ class CryptoService {
 
 class AgeCalculator {
     protected birthDateTime: Date;
-
+  
     constructor(birthDateTime: Date) {
-        this.validateBirthDateTime(birthDateTime);
-        this.birthDateTime = birthDateTime;
+      this.validateBirthDateTime(birthDateTime);
+      this.birthDateTime = birthDateTime;
     }
-
+  
     private validateBirthDateTime(birthDateTime: Date): void {
-        const currentDateTime = new Date();
-
-        if (
-            isNaN(birthDateTime.getTime()) ||
-            birthDateTime > currentDateTime ||
-            birthDateTime.getFullYear() < 1900
-        ) {
-            throw new Error('Invalid birth date and time. Please enter a valid date and time before the current date.');
-        }
+      const currentDateTime = new Date();
+  
+      if (
+        isNaN(birthDateTime.getTime()) ||
+        birthDateTime > currentDateTime ||
+        birthDateTime.getFullYear() < 1900
+      ) {
+        throw new Error('Invalid birth date and time. Please enter a valid date and time before the current date.');
+      }
     }
-
-    getAge(): number {
-        const currentDateTime = new Date();
-        const birthYear = this.birthDateTime.getFullYear();
-        const currentYear = currentDateTime.getFullYear();
-
-        let age = currentYear - birthYear;
-
-        // Adjust age based on the birth month, day, and time (if available)
-        if (
-            currentDateTime.getMonth() < this.birthDateTime.getMonth() ||
-            (currentDateTime.getMonth() === this.birthDateTime.getMonth() &&
-                (currentDateTime.getDate() < this.birthDateTime.getDate() ||
-                    (currentDateTime.getDate() === this.birthDateTime.getDate() &&
-                        (this.birthDateTime.getHours() !== 0 ||
-                            currentDateTime.getHours() < this.birthDateTime.getHours()))))
-        ) {
-            age--;
-        }
-
-        return age;
+  
+    getAge(): { years: number; months: number; days: number } {
+      const currentDate = new Date();
+      const birthYear = this.birthDateTime.getFullYear();
+      const currentYear = currentDate.getFullYear();
+      const birthMonth = this.birthDateTime.getMonth();
+      const currentMonth = currentDate.getMonth();
+  
+      let ageYears = currentYear - birthYear;
+      let ageMonths = currentMonth - birthMonth;
+      let ageDays = currentDate.getDate() - this.birthDateTime.getDate();
+  
+      if (ageMonths < 0 || (ageMonths === 0 && ageDays < 0)) {
+        ageYears--;
+        ageMonths = 12 + ageMonths;
+      }
+  
+      if (ageDays < 0) {
+        const lastMonthDays = new Date(currentYear, currentMonth, 0).getDate();
+        ageDays = lastMonthDays + ageDays;
+      }
+  
+      return { years: ageYears, months: ageMonths, days: ageDays };
     }
-}
+  }
 class ZodiacSignCalculator extends AgeCalculator {
     constructor(birthDateTime: Date) {
         super(birthDateTime);

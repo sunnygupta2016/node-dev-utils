@@ -20,7 +20,11 @@ declare class AgeCalculator {
     protected birthDateTime: Date;
     constructor(birthDateTime: Date);
     private validateBirthDateTime;
-    getAge(): number;
+    getAge(): {
+        years: number;
+        months: number;
+        days: number;
+    };
 }
 declare class ZodiacSignCalculator extends AgeCalculator {
     constructor(birthDateTime: Date);

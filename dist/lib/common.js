@@ -375,20 +375,23 @@ var AgeCalculator = /** @class */ (function () {
         }
     };
     AgeCalculator.prototype.getAge = function () {
-        var currentDateTime = new Date();
+        var currentDate = new Date();
         var birthYear = this.birthDateTime.getFullYear();
-        var currentYear = currentDateTime.getFullYear();
-        var age = currentYear - birthYear;
-        // Adjust age based on the birth month, day, and time (if available)
-        if (currentDateTime.getMonth() < this.birthDateTime.getMonth() ||
-            (currentDateTime.getMonth() === this.birthDateTime.getMonth() &&
-                (currentDateTime.getDate() < this.birthDateTime.getDate() ||
-                    (currentDateTime.getDate() === this.birthDateTime.getDate() &&
-                        (this.birthDateTime.getHours() !== 0 ||
-                            currentDateTime.getHours() < this.birthDateTime.getHours()))))) {
-            age--;
+        var currentYear = currentDate.getFullYear();
+        var birthMonth = this.birthDateTime.getMonth();
+        var currentMonth = currentDate.getMonth();
+        var ageYears = currentYear - birthYear;
+        var ageMonths = currentMonth - birthMonth;
+        var ageDays = currentDate.getDate() - this.birthDateTime.getDate();
+        if (ageMonths < 0 || (ageMonths === 0 && ageDays < 0)) {
+            ageYears--;
+            ageMonths = 12 + ageMonths;
         }
-        return age;
+        if (ageDays < 0) {
+            var lastMonthDays = new Date(currentYear, currentMonth, 0).getDate();
+            ageDays = lastMonthDays + ageDays;
+        }
+        return { years: ageYears, months: ageMonths, days: ageDays };
     };
     return AgeCalculator;
 }());
