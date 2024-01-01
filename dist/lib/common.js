@@ -1,4 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -23,7 +38,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CryptoService = exports.OTPGenerator = exports.getCountryFromCode = exports.IsEqualArrays = void 0;
+exports.ZodiacSignCalculator = exports.AgeCalculator = exports.CryptoService = exports.OTPGenerator = exports.getCountryFromCode = exports.IsEqualArrays = void 0;
 var data = {
     "AF": "Afghanistan",
     "AX": "Åland Islands",
@@ -346,3 +361,83 @@ var CryptoService = /** @class */ (function () {
     return CryptoService;
 }());
 exports.CryptoService = CryptoService;
+var AgeCalculator = /** @class */ (function () {
+    function AgeCalculator(birthDateTime) {
+        this.validateBirthDateTime(birthDateTime);
+        this.birthDateTime = birthDateTime;
+    }
+    AgeCalculator.prototype.validateBirthDateTime = function (birthDateTime) {
+        var currentDateTime = new Date();
+        if (isNaN(birthDateTime.getTime()) ||
+            birthDateTime > currentDateTime ||
+            birthDateTime.getFullYear() < 1900) {
+            throw new Error('Invalid birth date and time. Please enter a valid date and time before the current date.');
+        }
+    };
+    AgeCalculator.prototype.getAge = function () {
+        var currentDateTime = new Date();
+        var birthYear = this.birthDateTime.getFullYear();
+        var currentYear = currentDateTime.getFullYear();
+        var age = currentYear - birthYear;
+        // Adjust age based on the birth month, day, and time (if available)
+        if (currentDateTime.getMonth() < this.birthDateTime.getMonth() ||
+            (currentDateTime.getMonth() === this.birthDateTime.getMonth() &&
+                (currentDateTime.getDate() < this.birthDateTime.getDate() ||
+                    (currentDateTime.getDate() === this.birthDateTime.getDate() &&
+                        (this.birthDateTime.getHours() !== 0 ||
+                            currentDateTime.getHours() < this.birthDateTime.getHours()))))) {
+            age--;
+        }
+        return age;
+    };
+    return AgeCalculator;
+}());
+exports.AgeCalculator = AgeCalculator;
+var ZodiacSignCalculator = /** @class */ (function (_super) {
+    __extends(ZodiacSignCalculator, _super);
+    function ZodiacSignCalculator(birthDateTime) {
+        return _super.call(this, birthDateTime) || this;
+    }
+    ZodiacSignCalculator.prototype.getZodiacSign = function () {
+        var month = this.birthDateTime.getMonth() + 1; // JavaScript months are 0-based
+        var day = this.birthDateTime.getDate();
+        if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
+            return 'Aries';
+        }
+        else if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) {
+            return 'Taurus';
+        }
+        else if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) {
+            return 'Gemini';
+        }
+        else if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) {
+            return 'Cancer';
+        }
+        else if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) {
+            return 'Leo';
+        }
+        else if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) {
+            return 'Virgo';
+        }
+        else if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) {
+            return 'Libra';
+        }
+        else if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) {
+            return 'Scorpio';
+        }
+        else if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) {
+            return 'Sagittarius';
+        }
+        else if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) {
+            return 'Capricorn';
+        }
+        else if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) {
+            return 'Aquarius';
+        }
+        else {
+            return 'Pisces';
+        }
+    };
+    return ZodiacSignCalculator;
+}(AgeCalculator));
+exports.ZodiacSignCalculator = ZodiacSignCalculator;

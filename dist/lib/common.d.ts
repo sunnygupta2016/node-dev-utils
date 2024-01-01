@@ -16,4 +16,14 @@ declare class CryptoService {
     encrypt(text: string): string;
     decrypt(cipherText: string): string;
 }
-export { IsEqualArrays, getCountryFromCode, OTPGenerator, CryptoService };
+declare class AgeCalculator {
+    protected birthDateTime: Date;
+    constructor(birthDateTime: Date);
+    private validateBirthDateTime;
+    getAge(): number;
+}
+declare class ZodiacSignCalculator extends AgeCalculator {
+    constructor(birthDateTime: Date);
+    getZodiacSign(): string;
+}
+export { IsEqualArrays, getCountryFromCode, OTPGenerator, CryptoService, AgeCalculator, ZodiacSignCalculator };
