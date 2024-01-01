@@ -38,3 +38,24 @@ npm install nodejs-common-helper
    let d = common.common.getCountryFromCode('IN');
    console.log(d) // India
 ```
+
+``` js
+   const { MongoDBConnection } = require('nodejs-common-helper');
+   const mongoConnection = new MongoDBConnection();
+
+   async function abc(){
+                                                     // DB_STRING                   COLLECTION_NAME
+     const connection = await mongoConnection.connect('mongodb://127.0.0.1:27017', 'sunnydb');
+     const listCollections = await mongoConnection.listCollections();
+      // [ 'quots', 'random', 'temp' ]
+     const listDatabases = await mongoConnection.listDatabases();
+      // ['admin','config','local','sunny''sunnydb']
+     const getCollectionSize = await mongoConnection.getCollectionSize('sunnydb','quots'); 
+     //  0.00000286102294921875
+
+     const collection = connection.collection('quots');
+     let data = await collection.find({}).toArray();
+     //console.log(data);
+}
+abc()
+```
