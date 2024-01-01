@@ -29,7 +29,7 @@ npm install nodejs-common-helper
 ## Example
 
 ``` js
-const { common } = require('nodejs-common-helper');
+   const { common } = require('nodejs-common-helper');
    let a = [1,2]
    let b = [1,2]
    let c = common.IsEqualArrays(a,b)

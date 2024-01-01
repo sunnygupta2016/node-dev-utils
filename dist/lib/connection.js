@@ -45,24 +45,94 @@ var MongoDBConnection = /** @class */ (function () {
     function MongoDBConnection() {
         this.mongoose = mongoose_1.default;
     }
-    MongoDBConnection.prototype.connect = function (databaseUrl) {
+    MongoDBConnection.prototype.connect = function (databaseUrl, dbName) {
         return __awaiter(this, void 0, void 0, function () {
             var error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        //await this.mongoose.connect(databaseUrl,{ useUnifiedTopology: true });
-                        return [4 /*yield*/, this.mongoose.connect(databaseUrl)];
+                        _a.trys.push([0, 5, , 6]);
+                        if (!dbName) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.mongoose.connect("".concat(databaseUrl, "/").concat(dbName))];
                     case 1:
-                        //await this.mongoose.connect(databaseUrl,{ useUnifiedTopology: true });
                         _a.sent();
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this.mongoose.connect(databaseUrl)];
+                    case 3:
+                        _a.sent();
+                        _a.label = 4;
+                    case 4:
                         console.log('Connected to MongoDB');
                         return [2 /*return*/, this.mongoose.connection];
-                    case 2:
+                    case 5:
                         error_1 = _a.sent();
                         console.error('Error connecting to MongoDB:', error_1);
                         throw error_1;
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MongoDBConnection.prototype.listDatabases = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var adminDb, databases, databaseNames, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        adminDb = this.mongoose.connection.db.admin();
+                        return [4 /*yield*/, adminDb.listDatabases()];
+                    case 1:
+                        databases = _a.sent();
+                        databaseNames = databases.databases.map(function (db) { return db.name; });
+                        return [2 /*return*/, databaseNames];
+                    case 2:
+                        error_2 = _a.sent();
+                        console.error('Error listing databases:', error_2);
+                        throw error_2;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MongoDBConnection.prototype.listCollections = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var collections, collectionNames, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.mongoose.connection.db.listCollections().toArray()];
+                    case 1:
+                        collections = _a.sent();
+                        collectionNames = collections.map(function (collection) { return collection.name; });
+                        return [2 /*return*/, collectionNames];
+                    case 2:
+                        error_3 = _a.sent();
+                        console.error('Error listing collections:', error_3);
+                        throw error_3;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MongoDBConnection.prototype.getCollectionSize = function (dbName, collectionName) {
+        return __awaiter(this, void 0, void 0, function () {
+            var db, collectionSizeInBytes, collectionSizeInMB, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        db = this.mongoose.connection.useDb(dbName);
+                        return [4 /*yield*/, db.collection(collectionName).estimatedDocumentCount()];
+                    case 1:
+                        collectionSizeInBytes = _a.sent();
+                        collectionSizeInMB = collectionSizeInBytes / (1024 * 1024);
+                        return [2 /*return*/, collectionSizeInMB];
+                    case 2:
+                        error_4 = _a.sent();
+                        console.error("Error getting size of collection ".concat(collectionName, ":"), error_4);
+                        throw error_4;
                     case 3: return [2 /*return*/];
                 }
             });

@@ -26,7 +26,10 @@ import { Connection } from 'mongoose';
 declare class MongoDBConnection {
     private mongoose;
     constructor();
-    connect(databaseUrl: string): Promise<Connection>;
+    connect(databaseUrl: string, dbName?: string): Promise<Connection>;
+    listDatabases(): Promise<string[]>;
+    listCollections(): Promise<string[]>;
+    getCollectionSize(dbName: string, collectionName: string): Promise<number>;
     disconnect(): void;
 }
 export { MongoDBConnection };
