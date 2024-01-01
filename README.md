@@ -11,3 +11,6 @@
 5. `CryptoService`: A set of cryptographic functions to enhance the security of your applications, including encryption and hashing.
 6. `AgeCalculator`: Easily calculate the age based on a given date of birth, simplifying age-related operations in your applications.
 7. `ZodiacSignCalculator`: Determine the zodiac sign based on a person's birthdate, adding a touch of astrological information to your projects.
+
+`In Progress:`
+Expect more valuable functions and enhancements to be added in future updates. We are committed to continuously improving and expanding the capabilities of nodejs-common-helper to meet the evolving needs of Node.js developers.
