@@ -25,3 +25,16 @@ Requirements:
 ```bash
 npm install nodejs-common-helper
 ```
+
+## Example
+
+``` js
+const { common } = require('nodejs-common-helper');
+   let a = [1,2]
+   let b = [1,2]
+   let c = common.IsEqualArrays(a,b)
+   console.log(c) // true
+
+   let d = common.common.getCountryFromCode('IN');
+   console.log(d) // India
+```
