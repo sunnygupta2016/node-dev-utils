@@ -59,3 +59,69 @@ npm install nodejs-common-helper
 }
 abc()
 ```
+
+``` js
+   const { JwtWebToken } = require('nodejs-common-helper');
+   const secretKey = 'abc';
+   const jwtService = new JwtWebToken(secretKey);
+
+   // Create a token
+   const payload = { userId: 123, username: 'john_doe' };
+   const expiresIn = '1h';
+   const token = jwtService.sign(payload, expiresIn);
+   console.log('Token:', token); 
+   // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywidXNlcm5hbWUiOiJqb2huX2RvZSIsImlhdCI6MTcwNDEyNTI3OCwiZXhwIjoxNzA0MTI4ODc4fQ.0KrJvPMlBDM-MPHGQ_a0CpjSo5VPZ0yiPJ4iMidXn5o
+
+   // Verify a token
+   const verifiedPayload = jwtService.verify(token);
+   console.log('Verified Payload:', verifiedPayload);
+   //{ userId: 123, username: 'john_doe', iat: 1704125278, exp: 1704128878 }
+```
+
+``` js
+   const { OTPGenerator } = require('nodejs-common-helper');
+   const otpGenerator = new OTPGenerator();
+   const numericOTP = otpGenerator.generateNumericOTP(4);
+   const characterOTP = otpGenerator.generateCharacterOTP(4);
+   const alphanumericOTP = otpGenerator.generateAlphanumericOTP(4);
+
+   console.log('Numeric OTP:', numericOTP); //0579
+   console.log('Character OTP:', characterOTP); //TTZV
+   console.log('Alphanumeric OTP:', alphanumericOTP); //5A3E
+```
+
+``` js
+   const { CryptoService } = require('nodejs-common-helper');
+   const encryptionKey = 'YourEncryptionKey';
+   const iv = 'YourInitializationVector';
+
+   const cryptoService = new CryptoService(encryptionKey, iv);
+
+   const plaintext = 'Hello, this is a secret message!';
+   const encryptedText = cryptoService.encrypt(plaintext);
+   console.log('Encrypted:', encryptedText); //U2FsdGVkX19GqjJHRU/DEAWKscOuBYKYwtDuPkco/o5jn+/ytYmJlgBQptKrx1r6PipkI0f6xYAJwqHYf1D2FQ==
+
+   const decryptedText = cryptoService.decrypt(encryptedText);
+   console.log('Decrypted:', decryptedText); //Hello, this is a secret message!
+```
+
+``` js
+   const { AgeCalculator } = require('nodejs-common-helper');
+   const birthDateTimeString = '1990-08-16';
+   const birthDateTime = new Date(birthDateTimeString);
+   const ageCalculator = new AgeCalculator(birthDateTime);
+
+   const age = ageCalculator.getAge();
+   console.log(age);
+   //{"years":33,"months":5,"days":16}
+```
+
+``` js
+   const { ZodiacSignCalculator } = require('nodejs-common-helper');
+   const birthDateTimeString = '1990-08-16';
+   const birthDateTime = new Date(birthDateTimeString);
+   const zodiacSignCalculator = new ZodiacSignCalculator(birthDateTime);
+   const zodiacSign = zodiacSignCalculator.getZodiacSign();
+   console.log(`Your zodiac sign is ${zodiacSign}.`);
+   //Leo
+```
