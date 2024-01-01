@@ -1,6 +1,6 @@
 # nodejs-common-helper
 
-## Description:
+# Description:
 `nodejs-common-helper` is a versatile and evolving npm package designed to simplify Node.js development by providing a set of common functions that developers frequently encounter in their projects. Whether you're working on web applications, APIs, or other Node.js-based projects, this package aims to save you time and effort with its handy utilities.
 
 # Current Functions:
